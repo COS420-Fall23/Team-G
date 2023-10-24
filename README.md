@@ -1,3 +1,19 @@
+# Team G
+
+Repository of team g
+
+Sustainable and equitable parking and transport to and from campus
+
+PM: Abhilash Durgam (abhilash.durgam@maine.edu)
+
+Developers: David Neufeld (david.neufeld@maine.edu) Kledis Zaimi (kledis.zaimi@maine.edu) Knox Brown (knox.brown@maine.edu)
+
+Designers: John Kearney (john.kearney@maine.edu) Tiffany Ha (tiffany.ha@maine.edu)
+
+Stand-up meetings on 5-6pm on Tuesday.
+
+Guidelines for communication: When a question is put on Discord try to respond to it by the end of the day. When someone @ you on Discord respond within a couple of hours
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +84,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+List of contributors (Add your own name):
+David Neufeld
