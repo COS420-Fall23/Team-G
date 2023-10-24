@@ -1,4 +1,15 @@
-# Getting Started with Create React App
+# BearPool
+
+Our app will provide rides to students, from students. It will be similar to other ride-sharing applications but will only proctor rides to and from campus. All this, in an effort to help students without vehicles find transportation on a daily basis. The end goal of the app will be to match students up with those who have a similar schedule. This may take a few tries, but two students who have a similar schedule will likely continue making trips together for an entire semester. 
+
+
+## Meeting timings
+
+Standup meetings every tuesday 5:00 - 6:00
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
