@@ -97,4 +97,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 List of contributors (Add your own name):
-David Neufeld, Tiffany Ha, Quinn Knowles, John Kearney
+David Neufeld, Tiffany Ha, Quinn Knowles, John Kearney, Kledis Zaimi
