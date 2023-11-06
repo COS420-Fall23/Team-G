@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, TextField, Typography, Link } from '@mui/material';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div({
   display: 'flex',
@@ -55,14 +56,22 @@ const PrivacyLink = styled(Link)({
   alignSelf: 'center',
 });
 
+
+
 function SignIn() {
+  const navigate = useNavigate();
+  const handleSignIn = (event) => {
+    console.log("hi")
+    event.preventDefault();
+    navigate('/dashboard');
+  };
   return (
     <Container>
       <Header variant="h5">Welcome Back to BearPool</Header>
       <Form>
         <TextField variant="outlined" type="email" placeholder="Email" defaultValue="student@maine.edu" />
         <TextField variant="outlined" type="password" placeholder="Password" />
-        <SignInButton variant="contained" color="primary" type="submit">Sign In</SignInButton>
+        <SignInButton variant="contained" color="primary" type="submit" onClick={(event)=>handleSignIn(event)}>Sign In</SignInButton>
         <PrivacyLink href="#">About Privacy</PrivacyLink>
       </Form>
     </Container>
