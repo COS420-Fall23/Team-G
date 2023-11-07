@@ -91,7 +91,18 @@ const Homescreen = () => {
                 }}
             >
                 <Toolbar />
-                {drawerContent}
+                <Box sx={{ overflow: 'auto' }}>
+                    <List>
+                        {['Drivers', 'Ride Requests', 'Map','Profile','Logout'].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemIcon>
+                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
             </Drawer>
             <Box
                 component="main"
