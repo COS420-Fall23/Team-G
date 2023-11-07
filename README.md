@@ -98,3 +98,50 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 List of contributors (Add your own name):
 David Neufeld, Tiffany Ha, Quinn Knowles, John Kearney, Kledis Zaimi
+
+## Software architecture:
+
+bearpool__
+   - [README.md](README.md)
+   - [node\_modules](node_modules)
+   - [package\-lock.json](package-lock.json)
+   - [package.json](package.json)
+   - __public__
+     - [favicon.ico](public/favicon.ico)
+     - [index.html](public/index.html)
+     - [logo192.png](public/logo192.png)
+     - [logo512.png](public/logo512.png)
+     - [manifest.json](public/manifest.json)
+     - [robots.txt](public/robots.txt)
+   - __src__
+     - [App.css](src/App.css)
+     - [App.js](src/App.js)
+     - [App.test.js](src/App.test.js)
+     - __Home Dashboard__
+       - [Homescreen.jsx](src/Home Dashboard/Homescreen.jsx)
+       - [MapInterface.jsx](src/Home Dashboard/MapInterface.jsx)
+       - [SetupLeaflet.jsx](src/Home Dashboard/SetupLeaflet.jsx)
+     - __Location and Routing__
+       - [LocationComponent.jsx](src/Location and Routing/LocationComponent.jsx)
+     - [MainRouter.jsx](src/MainRouter.jsx)
+     - __Sign in up__
+       - [Signin.jsx](src/Sign in up/Signin.jsx)
+       - [Signup.jsx](src/Sign in up/Signup.jsx)
+       - [signup.test.jsx](src/Sign in up/signup.test.jsx)
+     - [index.css](src/index.css)
+     - [index.js](src/index.js)
+     - [logo.svg](src/logo.svg)
+     - [reportWebVitals.js](src/reportWebVitals.js)
+     - [setupTests.js](src/setupTests.js)
+
+Additional libraries
+
+@emotion/react and @emotion/styled: These libraries are part of the Emotion CSS-in-JS styling framework, which allows you to write CSS styles with JavaScript and use them in React components. They provide powerful ways to style applications with dynamic capabilities.
+
+@mui/material, @mui/icons-material, @mui/system: These are part of Material-UI, a popular React UI framework that provides pre-designed components according to Material Design principles, allowing for rapid UI development with a consistent style.
+
+leaflet and react-leaflet: Leaflet is a leading open-source JavaScript library for mobile-friendly interactive maps. react-leaflet provides an abstraction of leaflet as React components, making it easier to create and control the map from React applications.
+
+react, react-dom: React is the core library for building components, and react-dom is the glue between React and the DOM, allowing you to render and manipulate DOM elements in a web page using React.
+
+react-router-dom: This is the standard routing library for React, which lets you handle navigation and URL management in single-page web applications.
