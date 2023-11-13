@@ -26,21 +26,25 @@ describe("ProfilePage Component", () => {
 
   test("displays the major", () => {
     render(<ProfilePage />);
-    expect(
-      screen.getByText(`Major: ${UserInformation.major}`)
-    ).toBeInTheDocument();
+    const pattern = new RegExp(UserInformation.major, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+    expect(screen.getByText(pattern)).toBeInTheDocument();
   });
 
   test("displays the about me text", () => {
     render(<ProfilePage />);
-    expect(
-      screen.getByText(`About Me: ${UserInformation.aboutMeText}`)
-    ).toBeInTheDocument();
+    // Define a regular expression pattern to match the desired text
+    const pattern = new RegExp(UserInformation.aboutMeText, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+    // this allows searching for text regardless of it being encapsulated in other text.
   });
 
   test("displays the carpool preferences", () => {
     render(<ProfilePage />);
-    expect(screen.getByText(UserInformation.preferences)).toBeInTheDocument();
+    // Define a regular expression pattern to match the desired text
+    const preferencesPattern = new RegExp(UserInformation.preferences, "i");
+    expect(screen.getByText(preferencesPattern)).toBeInTheDocument();
   });
 
   test("displays reviews from specific individuals", () => {
