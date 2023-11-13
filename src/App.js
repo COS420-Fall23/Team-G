@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import AvailabilitySection from './Availability/AvailabilitySection';
 
 const gradientAnimation = keyframes`
   0% {
@@ -49,6 +50,9 @@ function App() {
 
   return (
     <AnimatedContainer>
+      <div className="app-container">
+      <AvailabilitySection />
+    </div>
       <AppButton variant="contained" onClick={() => navigate('/signup')}>Sign Up</AppButton>
       <AppButton variant="contained" onClick={() => navigate('/signin')}>Sign In</AppButton>
     </AnimatedContainer>

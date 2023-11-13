@@ -4,6 +4,7 @@ import App from './App';
 import Signup from './Sign in up/Signup';
 import SignIn from './Sign in up/Signin';
 import Homescreen from './Home Dashboard/Homescreen';
+import AvailabilitySection from './Availability/AvailabilitySection';
 
 function MainRouter() {
   return (
