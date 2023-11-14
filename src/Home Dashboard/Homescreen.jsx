@@ -5,6 +5,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PeopleIcon from '@mui/icons-material/People';
 import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
+import AvailabilitySection from "../Availability/AvailabilitySection"
 const drawerWidth = 240;
 
 const Homescreen = () => {
@@ -19,6 +20,9 @@ const Homescreen = () => {
     };
     return (
         <Box sx={{ display: 'flex' }}>
+            <div className="app-container">
+      <AvailabilitySection />
+    </div>
             <LocationComponent onLocation={handleLocation} />
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>

@@ -50,9 +50,6 @@ function App() {
 
   return (
     <AnimatedContainer>
-      <div className="app-container">
-      <AvailabilitySection />
-    </div>
       <AppButton variant="contained" onClick={() => navigate('/signup')}>Sign Up</AppButton>
       <AppButton variant="contained" onClick={() => navigate('/signin')}>Sign In</AppButton>
     </AnimatedContainer>
