@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-import Signup from './Sign in up/Signup'
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
