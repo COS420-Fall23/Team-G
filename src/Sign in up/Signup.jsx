@@ -11,7 +11,7 @@ const Container = styled.div({
   padding: '20px',
   backgroundColor: '#E8F4FA',
   height: '100vh',
-  ['@media (min-width:600px)']: {
+  '@media (min-width:600px)': {
     padding: '40px',
   },
 });
@@ -38,7 +38,7 @@ const Form = styled.div({
   '& .MuiTextField-root': {
     marginBottom: '16px',
   },
-  ['@media (min-width:960px)']: {
+  '@media (min-width:960px)': {
     maxWidth: '400px',
   },
 });
