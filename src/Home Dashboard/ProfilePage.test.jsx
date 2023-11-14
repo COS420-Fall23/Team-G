@@ -18,9 +18,18 @@ const UserInformation = {
   ],
 };
 
+const RenderProfilePage = () => {
+    return (
+        render(<ProfilePage
+            UserInformation={UserInformation}
+        />)
+    );
+}
+
+
 describe("ProfilePage Component", () => {
   test("displays the name", () => {
-    render(<ProfilePage />);
+    RenderProfilePage()
     expect(screen.getByText(UserInformation.name)).toBeInTheDocument();
   });
 

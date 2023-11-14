@@ -13,6 +13,7 @@ const UserInformation = {
 };
 
 const ProfilePage = () => {
+  //this.UserInformation=UserInformation
   return (
     <div style={{ fontFamily: 'Arial', padding: '20px', backgroundColor: '#f5f5f5', maxWidth: '400px', margin: 'auto' }}>
       
