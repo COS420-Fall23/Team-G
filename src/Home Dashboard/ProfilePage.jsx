@@ -13,6 +13,7 @@ const UserInformation = {
 };
 
 const ProfilePage = () => {
+  //this.UserInformation=UserInformation
   return (
     <div style={{ fontFamily: 'Arial', padding: '20px', backgroundColor: '#f5f5f5', maxWidth: '400px', margin: 'auto' }}>
       
@@ -25,12 +26,9 @@ const ProfilePage = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '15px' }}>
           <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#9e9e9e', marginBottom: '10px' }}></div>
           <h2 style={{ margin: '0' }}>{UserInformation.name}</h2>
-          <p>Major: {UserInformation.major}</p>
-          <p>About Me: {UserInformation.aboutMeText}</p>
-        </div>
-        <div>
-          <h3>Carpool Preferences</h3>
-          {UserInformation.preferences}
+          <p> <strong>Major:</strong> {UserInformation.major}</p>
+          <p><strong>About Me:</strong> {UserInformation.aboutMeText}</p>
+          <p><strong>Carpool Preferences:</strong> {UserInformation.preferences}</p>
         </div>
       </section>
 

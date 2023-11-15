@@ -15,9 +15,17 @@ import StarEmptyIcon from '@mui/icons-material/StarBorder';
 const Review = ({ name, rating, reviewText }) => {
     // Create an array of stars based on the rating
     const stars = Array.from({ length: 5 }, (_, index) => (
-        <span key={index} className="star">
-            {index < rating ? ((rating-index) < 1 ? <StarHalfIcon />: <StarIcon />) : <StarEmptyIcon/>}
-        </span>
+      <span key={index} className="star">
+        {index < rating ? (
+          rating - index < 1 ? (
+            <StarHalfIcon data-testid="half-star-icon" />
+          ) : (
+            <StarIcon data-testid="star-icon" />
+          )
+        ) : (
+          <StarEmptyIcon />
+        )}
+      </span>
     ));
 
     return (
