@@ -20,7 +20,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PeopleIcon from '@mui/icons-material/People';
 import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -30,11 +30,33 @@ const Homescreen = () => {
         coordinates: { lat: "", lng: "" },
         error: null
     });
+
+
+    //List of navigation components to rest in the Drawer
     const navigate = useNavigate();
+    // const handleDrivers = (event) => {
+    //     event.preventDefault();
+    //     navigate('/Drivers');
+    //   };
+    // const handleRequest = (event) => {
+    //     event.preventDefault();
+    //     navigate('/RideRequest');
+    //   };
+    // const handleMap = (event) => {
+    //     event.preventDefault();
+    //     navigate('/Map');
+    //   };
     const handleProfile = (event) => {
       event.preventDefault();
       navigate('/ProfilePage');
     };
+    /*const handlelogout = (event) => {
+        event.preventDefault();
+        navigate('/ProfilePage');
+      };*/
+
+
+
     const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
     const theme = useTheme();
     // Breakpoint for mobile devices
@@ -87,6 +109,7 @@ const Homescreen = () => {
             <Drawer
                 variant={isMobile ? 'temporary' : 'permanent'}
                 open={mobileOpen}
+                data-testID="Drawer"
                 onClose={handleDrawerToggle}
                 ModalProps={{
                   keepMounted: true, // Better open performance on mobile.
