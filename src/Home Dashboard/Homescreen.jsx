@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import MapInterface from './MapInterface';
 import { 
@@ -19,6 +20,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PeopleIcon from '@mui/icons-material/People';
 import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -28,6 +30,11 @@ const Homescreen = () => {
         coordinates: { lat: "", lng: "" },
         error: null
     });
+    const navigate = useNavigate();
+    const handleProfile = (event) => {
+      event.preventDefault();
+      navigate('/ProfilePage');
+    };
     const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
     const theme = useTheme();
     // Breakpoint for mobile devices
@@ -91,7 +98,18 @@ const Homescreen = () => {
                 }}
             >
                 <Toolbar />
-                {drawerContent}
+                <Box sx={{ overflow: 'auto' }}>
+                    <List>
+                        {['Drivers', 'Ride Requests', 'Map','Profile','Logout'].map((text, index) => (
+                            <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): null}>
+                                <ListItemIcon>
+                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
             </Drawer>
             <Box
                 component="main"
