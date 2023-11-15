@@ -22,13 +22,19 @@
     align-items: center;
     margin-bottom: 20px;
 }
-
+.back-button,
 .edit-profile-button {
     background-color: #ddd;
     border: none;
     border-radius: 5px;
     padding: 10px;
 }
+
+.back-button:hover,
+.edit-profile-button:hover {
+    background-color: #aaaaaabe; /* Change this to the desired hover color */
+}
+
 
 .user-section {
     background-color: #fff;
@@ -62,7 +68,9 @@
     border-bottom: 1px solid #DDD;
     padding-bottom: 10px;
     margin-bottom: 20px;
+    text-align: center;
 }
+
 
 .reviews-container {
     margin-bottom: 20px;

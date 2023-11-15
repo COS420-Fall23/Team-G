@@ -1,6 +1,7 @@
 import React from 'react';
 import Review from './Review.jsx'
 import './ProfilePage.css';
+import { useNavigate } from 'react-router-dom';
 const UserInformation = {
   name: 'John Doe',
   major: 'Computer Science',
@@ -14,10 +15,15 @@ const UserInformation = {
 };
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+  const handleBackButtonClick = () => {
+    navigate('/dashboard')
+  };
   return (
     <div className="profile-page">
       <header className="header">
-        <h1>Profile</h1>
+        <button className="back-button" onClick={handleBackButtonClick}>Back</button>
+        <h1>Your Profile</h1>
         <button className="edit-profile-button">Edit Profile</button>
       </header>
       
@@ -46,18 +52,19 @@ const ProfilePage = () => {
             </div>
           )}
           <div className="carpool-preference-buttons">
-            <button className="passenger-button">Passenger</button>
-            <button className="driver-button">Driver</button>
           </div>
         </div>
       </section>
 
-      <nav className="navigation">
-        <button className="set-up-drive-button">Set Up Drive</button>
-        <button className="request-ride-button">Request Ride</button>
-        <button className="profile-button">Profile</button>
-        <button className="notifications-button">Notifications</button>
-      </nav>
+      {/* 
+<nav className="navigation">
+    <button className="set-up-drive-button">Set Up Drive</button>
+    <button className="request-ride-button">Request Ride</button>
+    <button className="profile-button">Profile</button>
+    <button className="notifications-button">Notifications</button>
+</nav>
+*/}
+
     </div>
   );
 };
