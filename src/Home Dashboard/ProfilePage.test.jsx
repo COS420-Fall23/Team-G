@@ -1,6 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import ProfilePage from "./ProfilePage"; // Adjust the import path as needed
+import { render, screen, fireEvent } from "@testing-library/react";
+import ProfilePage from "./ProfilePage";
 
 const UserInformation = {
   name: "John Doe",
@@ -13,53 +13,74 @@ const UserInformation = {
     {
       name: "Dr. Fisk",
       rating: 5,
-      text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review.",
+      text:
+        "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review.",
     },
   ],
 };
 
 const RenderProfilePage = () => {
-    return (
-        render(<ProfilePage
-            UserInformation={UserInformation}
-        />)
-    );
-}
-
+  return render(<ProfilePage UserInformation={UserInformation} />);
+};
 
 describe("ProfilePage Component", () => {
   test("displays the name", () => {
-    RenderProfilePage()
+    RenderProfilePage();
     expect(screen.getByText(UserInformation.name)).toBeInTheDocument();
   });
 
   test("displays the major", () => {
-    render(<ProfilePage />);
+    RenderProfilePage();
     const pattern = new RegExp(UserInformation.major, "i");
-    expect(screen.getByText(pattern)).toBeInTheDocument();
     expect(screen.getByText(pattern)).toBeInTheDocument();
   });
 
   test("displays the about me text", () => {
-    render(<ProfilePage />);
-    // Define a regular expression pattern to match the desired text
+    RenderProfilePage();
     const pattern = new RegExp(UserInformation.aboutMeText, "i");
     expect(screen.getByText(pattern)).toBeInTheDocument();
-    expect(screen.getByText(pattern)).toBeInTheDocument();
-    // this allows searching for text regardless of it being encapsulated in other text.
   });
 
   test("displays the carpool preferences", () => {
-    render(<ProfilePage />);
-    // Define a regular expression pattern to match the desired text
+    RenderProfilePage();
     const preferencesPattern = new RegExp(UserInformation.preferences, "i");
     expect(screen.getByText(preferencesPattern)).toBeInTheDocument();
   });
 
   test("displays reviews from specific individuals", () => {
-    render(<ProfilePage />);
+    RenderProfilePage();
     UserInformation.reviews.forEach((review) => {
       expect(screen.getByText(review.name)).toBeInTheDocument();
     });
+  });
+
+  test("clicking edit displays three text fields", () => {
+    RenderProfilePage();
+    const editButton = screen.getByText("Edit");
+    fireEvent.click(editButton);
+
+    const nameField = screen.getByLabelText("Name");
+    const majorField = screen.getByLabelText("Major");
+    const aboutMeField = screen.getByLabelText("About Me");
+
+    expect(nameField).toBeInTheDocument();
+    expect(majorField).toBeInTheDocument();
+    expect(aboutMeField).toBeInTheDocument();
+  });
+
+  test("clicking edit again removes the text fields", () => {
+    RenderProfilePage();
+    const editButton = screen.getByText("Edit");
+    fireEvent.click(editButton);
+
+    fireEvent.click(editButton);
+
+    const nameField = screen.queryByLabelText("Name");
+    const majorField = screen.queryByLabelText("Major");
+    const aboutMeField = screen.queryByLabelText("About Me");
+
+    expect(nameField).toBeNull();
+    expect(majorField).toBeNull();
+    expect(aboutMeField).toBeNull();
   });
 });
