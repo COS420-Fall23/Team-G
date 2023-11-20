@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ProfilePage from "./ProfilePage";
 
@@ -19,9 +20,15 @@ const UserInformation = {
   ],
 };
 
+
 const RenderProfilePage = () => {
-  return render(<ProfilePage UserInformation={UserInformation} />);
+  return render(
+    <BrowserRouter>
+      <ProfilePage UserInformation={UserInformation} />
+    </BrowserRouter>
+  );
 };
+
 
 describe("ProfilePage Component", () => {
   test("displays the name", () => {
@@ -55,32 +62,28 @@ describe("ProfilePage Component", () => {
   });
 
   test("clicking edit displays three text fields", () => {
-    RenderProfilePage();
-    const editButton = screen.getByText("Edit");
-    fireEvent.click(editButton);
+  // Render the profile page
+  RenderProfilePage();
 
-    const nameField = screen.getByLabelText("Name");
-    const majorField = screen.getByLabelText("Major");
-    const aboutMeField = screen.getByLabelText("About Me");
+  // Get the edit button and click it
+  const editButton = screen.getByText("Edit Profile");
+  fireEvent.click(editButton);
 
-    expect(nameField).toBeInTheDocument();
-    expect(majorField).toBeInTheDocument();
-    expect(aboutMeField).toBeInTheDocument();
-  });
+  // Expect three text input fields to be in the page
+  expect(screen.getAllByRole("textbox").length).toBe(3);
+});
 
-  test("clicking edit again removes the text fields", () => {
-    RenderProfilePage();
-    const editButton = screen.getByText("Edit");
-    fireEvent.click(editButton);
+test("clicking edit again removes the text fields", () => {
+  // Render the profile page
+  RenderProfilePage();
 
-    fireEvent.click(editButton);
+  // Get the edit button and click it twice
+  const editButton = screen.getByText("Edit Profile");
+  fireEvent.click(editButton);
+  fireEvent.click(editButton);
 
-    const nameField = screen.queryByLabelText("Name");
-    const majorField = screen.queryByLabelText("Major");
-    const aboutMeField = screen.queryByLabelText("About Me");
+  // Expect zero text input fields to be in the page
+  expect(screen.queryAllByRole("textbox").length).toBe(0);
+});
 
-    expect(nameField).toBeNull();
-    expect(majorField).toBeNull();
-    expect(aboutMeField).toBeNull();
-  });
 });

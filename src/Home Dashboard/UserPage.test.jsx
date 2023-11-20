@@ -8,6 +8,7 @@
  */
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import UserPage from "./UserPage"; 
 
 const UserInformation = {
@@ -27,15 +28,17 @@ const UserInformation = {
 };
 
 const RenderUserPage = () => {
-    return (
-        render(<UserPage
-          UserInformation={UserInformation}
-          EnableAcceptRide={true}
-          EnableRequestRide={true}
-          EnableMessage={true}
-        />)
-    );
-}
+  return render(
+    <BrowserRouter>
+      <UserPage
+        UserInformation={UserInformation}
+        EnableAcceptRide={true}
+        EnableRequestRide={true}
+        EnableMessage={true}
+      />
+    </BrowserRouter>
+  );
+};
 
 
 describe("ProfilePage Component", () => {
