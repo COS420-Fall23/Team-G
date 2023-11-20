@@ -22,20 +22,23 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
 .back-button,
+.navigation-button,
 .edit-profile-button {
-    background-color: #ddd;
+    background-color: blue;
+    color: white;
     border: none;
     border-radius: 5px;
     padding: 10px;
 }
 
 .back-button:hover,
+.navigation-button:hover,
 .edit-profile-button:hover {
-    background-color: #aaaaaabe; /* Change this to the desired hover color */
+    background-color: rgb(0, 0, 136); /* Change this to the desired hover color */
+    
 }
-
-
 .user-section {
     background-color: #fff;
     border-radius: 5px;
@@ -99,10 +102,18 @@
 }
 
 .navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
-}
+    background-color: #ddd;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
 
 .set-up-drive-button,
 .request-ride-button,
