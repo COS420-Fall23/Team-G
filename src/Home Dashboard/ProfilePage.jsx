@@ -33,6 +33,9 @@ const ProfilePage = ({
   const handleBackButtonClick = () => {
     navigate(-1);
   };
+  const handleNotifications = () => {
+    navigate('/Notifications');
+  };
 
   const handleEditButtonClick = () => {
     setEditEnabled(!editEnabled);
@@ -52,6 +55,7 @@ const ProfilePage = ({
         <button className="edit-profile-button" onClick={handleEditButtonClick}>
           Edit Profile
         </button>
+        <button className= "go-to-notifications-button" Click={handleNotifications} > Notifications </button>
       </header>
 
       <section className="user-section">
@@ -122,12 +126,15 @@ const ProfilePage = ({
           <div className="carpool-preference-buttons"></div>
         </div>
       </section>
-      {/* <nav className="navigation">
+      {
+      /* <nav className="navigation">
+     
 <button className="navigation-button"> Button</button>
 <button className="navigation-button"> Button</button>
 <button className="navigation-button">Message</button>
 </nav> */}
     </div>
+  
   );
 };
 
