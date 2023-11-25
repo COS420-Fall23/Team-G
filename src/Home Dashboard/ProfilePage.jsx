@@ -55,7 +55,7 @@ const ProfilePage = ({
         <button className="edit-profile-button" onClick={handleEditButtonClick}>
           Edit Profile
         </button>
-        <button className= "go-to-notifications-button" Click={handleNotifications} > Notifications </button>
+        {/* <button className="go-to-notifications-button" Click={handleNotifications} > Notifications </button> */}
       </header>
 
       <section className="user-section">

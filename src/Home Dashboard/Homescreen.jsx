@@ -104,7 +104,7 @@ const Homescreen = () => {
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['Drivers', 'Ride Requests', 'Map','Profile','notifications','Logout'].map((text, index) => (
+                        {['Drivers', 'Ride Requests', 'Map','Profile','Notifications','Logout'].map((text, index) => (
                             <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): index ===4 ? (event)=>handleNotifications(event): null}>
                                 <ListItemIcon>
                                     {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
