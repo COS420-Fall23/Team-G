@@ -1,39 +1,116 @@
 /**
  * This will be a page for notifications to appear in
- *  
- *  
- *  
- *  
- *  
- *  
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import PeopleIcon from "@mui/icons-material/People";
+import MapIcon from "@mui/icons-material/Map";
+
+const drawerWidth = 240;
 
 const Notifications = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleBackButtonClick = () => {
     navigate(-1);
   };
+  const handleProfile = (event) => {
+    event.preventDefault();
+    navigate("/ProfilePage");
+  };
+  const handleNotifications = (event) => {
+    event.preventDefault();
+    navigate("/Notifications");
+  };
+  const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
   return (
     <div className="Notifications">
       <header className="header">
-        <button className="back-button" onClick={handleBackButtonClick}>
-          Back
-        </button>
         <h1>Notifications</h1>
       </header>
       <section className="Notifications-section">
-        <div className="Notifications-header">
-          <h3>Notifications</h3>
-        </div>
+        <Drawer
+          variant={isMobile ? "temporary" : "permanent"}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+        >
+          <Toolbar />
+          <Box sx={{ overflow: "auto" }}>
+            <List>
+              {[
+                "Drivers",
+                "Ride Requests",
+                "Map",
+                "Profile",
+                "Notifications",
+                "Back",
+              ].map((text, index) => (
+                <ListItem
+                  button
+                  key={text}
+                  onClick={
+                    index === 3
+                      ? (event) => handleProfile(event)
+                      : index === 4
+                      ? (event) => handleNotifications(event)
+                      : index === 5
+                      ? (event) => handleBackButtonClick(event)
+                      : null
+                  }
+                >
+                  <ListItemIcon>
+                    {index === 0 ? (
+                      <DirectionsCarIcon />
+                    ) : index === 1 ? (
+                      <PeopleIcon />
+                    ) : (
+                      <MapIcon />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
       </section>
-      {
-
-      }
+      {}
     </div>
   );
 };
