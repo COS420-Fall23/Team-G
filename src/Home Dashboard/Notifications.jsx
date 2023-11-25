@@ -18,9 +18,13 @@ import {
   ListItemText,
   Toolbar,
   Box,
+  AppBar,
+  IconButton,
+  Typography,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import PeopleIcon from "@mui/icons-material/People";
 import MapIcon from "@mui/icons-material/Map";
@@ -49,11 +53,25 @@ const Notifications = () => {
     setMobileOpen(!mobileOpen);
   };
   return (
-    <div className="Notifications">
-      <header className="header">
-        <h1>Notifications</h1>
-      </header>
-      <section className="Notifications-section">
+    <Box sx={{ display: 'flex' }}>
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+                <Toolbar>
+                    {isMobile && (
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    )}
+                    <Typography variant="h6" noWrap component="div">
+                        Notifications
+                    </Typography>
+                </Toolbar>
+            </AppBar>
         <Drawer
           variant={isMobile ? "temporary" : "permanent"}
           open={mobileOpen}
@@ -109,9 +127,7 @@ const Notifications = () => {
             </List>
           </Box>
         </Drawer>
-      </section>
-      {}
-    </div>
+      </Box>
   );
 };
 
