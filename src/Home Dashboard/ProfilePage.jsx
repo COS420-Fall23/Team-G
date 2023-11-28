@@ -16,7 +16,6 @@ import { db } from '../firebaseConfig.js';
 import { doc, getDoc } from "firebase/firestore";
 
 
-
 const ProfilePage = () => {
   const [editEnabled, setEditEnabled] = useState(false); // State variable to store EditEnabled
   const navigate = useNavigate();
