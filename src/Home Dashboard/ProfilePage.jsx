@@ -25,8 +25,7 @@ let UserInformation = {
   ]
 }
 
-const ProfilePage = ({
-}) => {
+const ProfilePage = () => {
   const [editEnabled, setEditEnabled] = useState(false); // State variable to store EditEnabled
   const navigate = useNavigate();
 
