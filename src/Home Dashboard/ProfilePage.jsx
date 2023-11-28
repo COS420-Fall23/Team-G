@@ -8,26 +8,36 @@
  * component also includes a "Back" button and handles the display of reviews. 
  * To use this component, import it into your app and render it within a route.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Review from './Review.jsx';
 import './ProfilePage.css';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../firebaseConfig.js';
+import { doc, getDoc } from "firebase/firestore";
 
-let UserInformation = {
-  name: 'John Doe',
-  major: 'Computer Science',
-  aboutMeText: 'Passionate about technology and innovation.',
-  preferences: 'Prefers non-smokers and no pets in the car.',
-  reviews: [
-    { name: "Ben Smith", rating: 4, text: "Pretty Good" },
-    { name: "Mark Wahlburg", rating: 3.5, text: "No Complaints" },
-    { name: "Dr. Fisk", rating: 5, text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review." }
-  ]
-}
+
 
 const ProfilePage = () => {
   const [editEnabled, setEditEnabled] = useState(false); // State variable to store EditEnabled
   const navigate = useNavigate();
+  const [UserInformation, setUserInformation] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "UserInformation", "lU8cWcrGcmVNyqNZHpIz");
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setUserInformation(docSnap.data())
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleBackButtonClick = () => {
     navigate(-1);
@@ -52,7 +62,7 @@ const ProfilePage = () => {
           Edit Profile
         </button>
       </header>
-
+      {UserInformation ? (<>
       <section className="user-section">
         <div className="user-info">
           <div className="user-image"></div>
@@ -120,7 +130,10 @@ const ProfilePage = () => {
           )}
           <div className="carpool-preference-buttons"></div>
         </div>
-      </section>
+      </section></>): (
+        // Render a loading message or handle loading state
+        <div>Loading...</div>
+      )}
       {/* <nav className="navigation">
 <button className="navigation-button"> Button</button>
 <button className="navigation-button"> Button</button>
