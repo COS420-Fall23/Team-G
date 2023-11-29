@@ -9,28 +9,38 @@
   "Request Ride", and "Message" buttons by setting the corresponding props when 
   calling the UserPage component.
 */
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import Review from './Review.jsx';
 import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar.jsx'
+import { db } from '../firebaseConfig.js';
+import { doc, getDoc } from "firebase/firestore";
 
 const UserPage = ({
+  uid = "lU8cWcrGcmVNyqNZHpIz",
   EnableAcceptRide = false,
-  EnableRequestRide = false,
-  EnableMessage = true,
-  UserInformation = {
-    name: 'John Doe',
-    major: 'Computer Science',
-    aboutMeText: 'Passionate about technology and innovation.',
-    preferences: 'Prefers non-smokers and no pets in the car.',
-    reviews: [
-      { name: "Ben Smith", rating: 4, text: "Pretty Good" },
-      { name: "Mark Wahlburg", rating: 3.5, text: "No Complaints" },
-      { name: "Dr. Fisk", rating: 5, text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review." }
-    ]
-  }
+  EnableRequestRide = true,
+  EnableMessage = true
 }) => {
+
+  const [UserInformation, setUserInformation] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "UserInformation", "lU8cWcrGcmVNyqNZHpIz");//todo: set based on logged in user
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setUserInformation(docSnap.data())
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
+    fetchData();
+  }, []);
     const navigate = useNavigate();
     
   const handleBackButtonClick = () => {
@@ -48,6 +58,8 @@ const UserPage = ({
 
   return (
     <div className="profile-page">
+      {UserInformation ? (<>
+      <section className="user-section">
       <header className="header">
         <button className="back-button" onClick={handleBackButtonClick}>
           Back
@@ -110,6 +122,10 @@ const UserPage = ({
         </button>
       )}
     </nav>
+    </section></>): (
+        // Render a loading message or handle loading state
+        <div>Loading...</div>
+      )}
     <Navbar />
     </div>
   );
