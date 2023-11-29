@@ -35,6 +35,10 @@ const Homescreen = () => {
       event.preventDefault();
       navigate('/ProfilePage');
     };
+    const handleNotifications = (event) => {
+        event.preventDefault();
+        navigate('/Notifications');
+      };
     const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
     const theme = useTheme();
     // Breakpoint for mobile devices
@@ -100,8 +104,8 @@ const Homescreen = () => {
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['Drivers', 'Ride Requests', 'Map','Profile','Logout'].map((text, index) => (
-                            <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): null}>
+                        {['Drivers', 'Ride Requests', 'Map','Profile','Notifications','Logout'].map((text, index) => (
+                            <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): index ===4 ? (event)=>handleNotifications(event): null}>
                                 <ListItemIcon>
                                     {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
                                 </ListItemIcon>
