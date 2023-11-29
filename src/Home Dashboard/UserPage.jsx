@@ -16,18 +16,23 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar.jsx'
 import { db } from '../firebaseConfig.js';
 import { doc, getDoc } from "firebase/firestore";
+import { useParams } from 'react-router-dom';
 
 const UserPage = ({
-  uid = "lU8cWcrGcmVNyqNZHpIz",
+  customuid,
   EnableAcceptRide = false,
   EnableRequestRide = true,
   EnableMessage = true
 }) => {
+  let { uid } = useParams();
+  if(!uid){
+    uid = customuid
+  }
 
   const [UserInformation, setUserInformation] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
-      const docRef = doc(db, "UserInformation", "lU8cWcrGcmVNyqNZHpIz");//todo: set based on logged in user
+      const docRef = doc(db, "UserInformation", uid);//todo: set based on logged in user
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {

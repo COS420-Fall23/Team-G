@@ -16,10 +16,13 @@ function MainRouter() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/ProfilePage" element={<ProfilePage/>} />
-        <Route path="/UserPage" element={<UserPage EnableRequestRide={true} />} />
-        <Route path="/UserPage1" element={<UserPage EnableAcceptRide={true} />} />
+        <Route path="/UserPage" element={<UserPage
+          customuid = {"lU8cWcrGcmVNyqNZHpIz"}
+          EnableRequestRide={true}
+        />} />
         <Route path="/Dashboard" element={<Homescreen/>} />
         <Route path="/Notifications" element={<Notifications/>}/>
+        <Route path="/user/:uid" element={<UserPage EnableRequestRide={true}/>} />
       </Routes>
     </Router>
   );
