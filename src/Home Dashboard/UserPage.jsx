@@ -13,6 +13,7 @@ import React from 'react';
 import Review from './Review.jsx';
 import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar.jsx'
 
 const UserPage = ({
   EnableAcceptRide = false,
@@ -89,27 +90,27 @@ const UserPage = ({
           <div className="carpool-preference-buttons"></div>
         </div>
       </section>
-
-      <nav className="navigation">
-        {EnableRequestRide && (
-          <button
-            className="navigation-button"
-            onClick={handleRequestRideClick}
-          >
-            Request Ride
-          </button>
-        )}
-        {EnableAcceptRide && (
-          <button className="navigation-button" onClick={handleAcceptRideClick}>
-            Accept Ride
-          </button>
-        )}
-        {EnableMessage && (
-          <button className="navigation-button" onClick={handleMessageClick}>
-            Message
-          </button>
-        )}
-      </nav>
+      <nav className="choices">
+      {EnableRequestRide && (
+        <button
+          className="choice-button"
+          onClick={handleRequestRideClick}
+        >
+          Request Ride
+        </button>
+      )}
+      {EnableAcceptRide && (
+        <button className="choice-button" onClick={handleAcceptRideClick}>
+          Accept Ride
+        </button>
+      )}
+      {EnableMessage && (
+        <button className="choice-button" onClick={handleMessageClick}>
+          Message
+        </button>
+      )}
+    </nav>
+    <Navbar />
     </div>
   );
 };

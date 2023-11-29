@@ -10,10 +10,11 @@
  */
 import React, { useState, useEffect } from 'react';
 import Review from './Review.jsx';
-import './ProfilePage.css';
+import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig.js';
 import { doc, getDoc } from "firebase/firestore";
+import Navbar from './Navbar.jsx'
 
 
 const ProfilePage = () => {
@@ -133,11 +134,7 @@ const ProfilePage = () => {
         // Render a loading message or handle loading state
         <div>Loading...</div>
       )}
-      {/* <nav className="navigation">
-<button className="navigation-button"> Button</button>
-<button className="navigation-button"> Button</button>
-<button className="navigation-button">Message</button>
-</nav> */}
+      <Navbar />
     </div>
   );
 };

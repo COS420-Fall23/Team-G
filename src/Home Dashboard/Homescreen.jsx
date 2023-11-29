@@ -18,6 +18,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'; // Added for hamburger menu
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PeopleIcon from '@mui/icons-material/People';
+import ProfileIcon from '@mui/icons-material/PersonRounded';
 import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +55,7 @@ const Homescreen = () => {
                 {['Drivers', 'Ride Requests', 'Map'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
-                            {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                            {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : index === 3 ? <ProfileIcon /> : <MapIcon />}
                         </ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -103,7 +104,7 @@ const Homescreen = () => {
                         {['Drivers', 'Ride Requests', 'Map','Profile','Logout'].map((text, index) => (
                             <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): null}>
                                 <ListItemIcon>
-                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon />  : index === 3 ? <ProfileIcon />: <MapIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
