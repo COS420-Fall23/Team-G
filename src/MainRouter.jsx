@@ -7,6 +7,7 @@ import Homescreen from './Home Dashboard/Homescreen';
 import ProfilePage from './Home Dashboard/ProfilePage';
 import UserPage from './Home Dashboard/UserPage';
 import Notifications from './Home Dashboard/Notifications';
+import PreferencesPage from './Home Dashboard/PreferencesPage';
 
 function MainRouter() {
   return (
@@ -23,6 +24,7 @@ function MainRouter() {
         <Route path="/user/:uid" element={<UserPage EnableRequestRide={true}/>} />
         <Route path="/Dashboard" element={<Homescreen/>} />
         <Route path="/Notifications" element={<Notifications/>}/>
+        <Route path="/Preferences" element={<PreferencesPage/>}/>
       </Routes>
     </Router>
   );
