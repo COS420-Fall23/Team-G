@@ -20,9 +20,9 @@ function MainRouter() {
           customuid = {"lU8cWcrGcmVNyqNZHpIz"}
           EnableRequestRide={true}
         />} />
+        <Route path="/user/:uid" element={<UserPage EnableRequestRide={true}/>} />
         <Route path="/Dashboard" element={<Homescreen/>} />
         <Route path="/Notifications" element={<Notifications/>}/>
-        <Route path="/user/:uid" element={<UserPage EnableRequestRide={true}/>} />
       </Routes>
     </Router>
   );

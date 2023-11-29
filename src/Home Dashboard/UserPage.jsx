@@ -46,7 +46,10 @@ const UserPage = ({
 
     fetchData();
   }, []);
-    const navigate = useNavigate();
+
+  //todo: check if there is incoming ride, and enable accept ride
+
+  const navigate = useNavigate();
     
   const handleBackButtonClick = () => {
     navigate(-1);
