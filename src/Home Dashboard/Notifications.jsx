@@ -58,16 +58,19 @@ const Notifications = () => {
       id: 1,
       title: 'Notification 1',
       message: 'This is the first notification.',
+      hasOptionalFeature: false, // Set hasOptionalFeature for each notification as needed
     },
     {
       id: 2,
       title: 'Notification 2',
       message: 'This is the second notification.',
+      hasOptionalFeature: false,
     },
     {
       id: 3,
       title: 'Notification 3',
       message: 'This is the third notification.',
+      hasOptionalFeature: true, // Third notification has the optional feature
     },
   ];
   return (
