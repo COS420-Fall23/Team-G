@@ -89,7 +89,6 @@ describe("ProfilePage Component", () => {
     
     // Expect three text input fields to be in the page
     expect(screen.getAllByRole("textbox").length).toBe(3);
-    fireEvent.click(editButton);
   });
 
 
