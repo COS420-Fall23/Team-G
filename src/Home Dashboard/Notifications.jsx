@@ -24,6 +24,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+import NotificationComponent from './NotificationComponent';
 import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import PeopleIcon from "@mui/icons-material/People";
@@ -51,6 +52,10 @@ const Notifications = () => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+  const notificationData = {
+    title: 'Hello!',
+    message: 'This is a sample notification.',
   };
   return (
     <Box sx={{ display: 'flex' }}>
@@ -127,8 +132,16 @@ const Notifications = () => {
             </List>
           </Box>
         </Drawer>
+      <div className="app">
+      <h1>Notification Example</h1>
+      <NotificationComponent notification={notificationData} />
+    </div>
       </Box>
+      
   );
+  
+  
+
 };
 
 export default Notifications;

@@ -1,0 +1,27 @@
+/* NotificationComponent.css */
+
+.notification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .notification {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .notification h3 {
+    margin-top: 0;
+  }
+  
+  .notification p {
+    margin-bottom: 0;
+  }
+  
