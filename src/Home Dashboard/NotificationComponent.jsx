@@ -5,6 +5,9 @@ import './NotificationComponent.css';
 
 const NotificationComponent = ({ notification, onDismiss }) => {
   const [dismissed, setDismissed] = useState(false);
+  const [optionalFeatureAccepted, setOptionalFeatureAccepted] = useState(false);
+
+  const { hasOptionalFeature } = notification;
 
   const handleDismiss = () => {
     setDismissed(true);
@@ -13,13 +16,34 @@ const NotificationComponent = ({ notification, onDismiss }) => {
     }
   };
 
+  const handleAccept = () => {
+    setOptionalFeatureAccepted(true);
+    // You can perform additional actions when the 'accept' button is clicked
+  };
+
+  const handleDecline = () => {
+    setDismissed(true);
+    // You can perform additional actions when the 'decline' button is clicked
+  };
+
   return (
     !dismissed && (
       <div className="notification-container">
         <div className="notification">
-          <button className="dismiss-button" onClick={handleDismiss}>
-            Dismiss
-          </button>
+          {hasOptionalFeature && !optionalFeatureAccepted ? (
+            <div className="optional-feature">
+              <button className="accept-button" onClick={handleAccept}>
+                Accept
+              </button>
+              <button className="decline-button" onClick={handleDecline}>
+                Decline
+              </button>
+            </div>
+          ) : (
+            <button className="dismiss-button" onClick={handleDismiss}>
+              Dismiss
+            </button>
+          )}
           <h3>{notification.title}</h3>
           <p>{notification.message}</p>
         </div>
