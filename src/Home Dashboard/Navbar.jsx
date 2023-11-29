@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import PeopleIcon from '@mui/icons-material/People';
+//import PeopleIcon from '@mui/icons-material/People';
+import MapIcon from '@mui/icons-material/Map';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PersonIcon from '@mui/icons-material/PersonRounded';
 import NotificationsIcon from '@mui/icons-material/NotificationsRounded';
@@ -9,10 +10,10 @@ import NotificationsIcon from '@mui/icons-material/NotificationsRounded';
 const Navbar = () => {
     const navigate = useNavigate();
 
-  const handleRideRequestsClick = () => {
+  const handleDashboardClick = () => {
     // Handle the logic for handling the request ride click
-    navigate(0);
-    console.log('Request ride clicked');
+    navigate("/Dashboard");
+    console.log('Dashboard clicked');
   };
 
   const handleSetUpRideClick = () => {
@@ -35,9 +36,9 @@ const Navbar = () => {
 
   return (
     <nav className="navigation">
-      <button className="navigation-button" onClick={handleRideRequestsClick}>
-        <div className = "icon"> <PeopleIcon /> </div>
-        Ride Requests
+      <button className="navigation-button" onClick={handleDashboardClick}>
+        <div className = "icon"> <MapIcon /> </div>
+        Dashboard
       </button>
       <button className="navigation-button" onClick={handleSetUpRideClick}>
       <div className = "icon"> <DirectionsCarIcon /> </div>
