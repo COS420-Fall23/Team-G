@@ -53,10 +53,23 @@ const Notifications = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const notificationData = {
-    title: 'Hello!',
-    message: 'This is a sample notification.',
-  };
+  const notifications = [
+    {
+      id: 1,
+      title: 'Notification 1',
+      message: 'This is the first notification.',
+    },
+    {
+      id: 2,
+      title: 'Notification 2',
+      message: 'This is the second notification.',
+    },
+    {
+      id: 3,
+      title: 'Notification 3',
+      message: 'This is the third notification.',
+    },
+  ];
   return (
     <Box sx={{ display: 'flex' }}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -132,9 +145,12 @@ const Notifications = () => {
             </List>
           </Box>
         </Drawer>
-      <div className="app">
-      <h1>Notification Example</h1>
-      <NotificationComponent notification={notificationData} />
+        <div className="app">
+      <div className="notification-list">
+        {notifications.map((notification) => (
+          <NotificationComponent key={notification.id} notification={notification} />
+        ))}
+      </div>
     </div>
       </Box>
       
