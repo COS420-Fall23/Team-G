@@ -10,20 +10,22 @@
  */
 import React, { useState, useEffect } from 'react';
 import Review from './Review.jsx';
-import './ProfilePage.css';
+import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig.js';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Navbar from './Navbar.jsx'
 
 
 const ProfilePage = () => {
   const [editEnabled, setEditEnabled] = useState(false); // State variable to store EditEnabled
   const navigate = useNavigate();
   const [UserInformation, setUserInformation] = useState(null);
+  const uid = "lU8cWcrGcmVNyqNZHpIz" //todo: set based on logged in user
 
   useEffect(() => {
     const fetchData = async () => {
-      const docRef = doc(db, "UserInformation", "lU8cWcrGcmVNyqNZHpIz");
+      const docRef = doc(db, "UserInformation", uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -43,6 +45,10 @@ const ProfilePage = () => {
   };
 
   const handleEditButtonClick = () => {
+    if (editEnabled) {
+      // Save the modified user information to the database
+      updateDoc(doc(db, "UserInformation", uid), UserInformation);
+    }
     setEditEnabled(!editEnabled);
   };
 
@@ -58,86 +64,85 @@ const ProfilePage = () => {
         </button>
         <h1>Your Profile</h1>
         <button className="edit-profile-button" onClick={handleEditButtonClick}>
-          Edit Profile
+          {editEnabled ? "Save Profile" : "Edit Profile"}
         </button>
       </header>
-      {UserInformation ? (<>
-      <section className="user-section">
-        <div className="user-info">
-          <div className="user-image"></div>
-          <h2>{UserInformation.name}</h2>
-          {editEnabled ? (
-            <div>
-              <p>
-                <strong>Major:</strong>{" "}
-                <input
-                  type="text"
-                  defaultValue={UserInformation.major}
-                  onChange={(e) => handleInputChange(e, "major")}
-                />
-              </p>
-              <p>
-                <strong>About Me:</strong>{" "}
-                <input
-                  type="text"
-                  defaultValue={UserInformation.aboutMeText}
-                  onChange={(e) => handleInputChange(e, "aboutMeText")}
-                />
-              </p>
-              <p>
-                <strong>Carpool Preferences:</strong>{" "}
-                <input
-                  type="text"
-                  defaultValue={UserInformation.preferences}
-                  onChange={(e) => handleInputChange(e, "preferences")}
-                />
-              </p>
+      {UserInformation ? (
+        <>
+          <section className="user-section">
+            <div className="user-info">
+              <div className="user-image"></div>
+              <h2>{UserInformation.name}</h2>
+              {editEnabled ? (
+                <div>
+                  <p>
+                    <strong>Major:</strong>{" "}
+                    <input
+                      type="text"
+                      defaultValue={UserInformation.major}
+                      onChange={(e) => handleInputChange(e, "major")}
+                    />
+                  </p>
+                  <p>
+                    <strong>About Me:</strong>{" "}
+                    <input
+                      type="text"
+                      defaultValue={UserInformation.aboutMeText}
+                      onChange={(e) => handleInputChange(e, "aboutMeText")}
+                    />
+                  </p>
+                  <p>
+                    <strong>Carpool Preferences:</strong>{" "}
+                    <input
+                      type="text"
+                      defaultValue={UserInformation.preferences}
+                      onChange={(e) => handleInputChange(e, "preferences")}
+                    />
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <p>
+                    <strong>Major:</strong> {UserInformation.major}
+                  </p>
+                  <p>
+                    <strong>About Me:</strong> {UserInformation.aboutMeText}
+                  </p>
+                  <p>
+                    <strong>Carpool Preferences:</strong>{" "}
+                    {UserInformation.preferences}
+                  </p>
+                </div>
+              )}
             </div>
-          ) : (
-            <div>
-              <p>
-                <strong>Major:</strong> {UserInformation.major}
-              </p>
-              <p>
-                <strong>About Me:</strong> {UserInformation.aboutMeText}
-              </p>
-              <p>
-                <strong>Carpool Preferences:</strong>{" "}
-                {UserInformation.preferences}
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
+          </section>
 
-      <section className="reviews-section">
-        <div className="reviews-header">
-          <h3>Reviews</h3>
-          {UserInformation.reviews.length > 0 ? (
-            <div className="reviews-container">
-              {UserInformation.reviews.map((review, index) => (
-                <Review
-                  key={index}
-                  name={review.name}
-                  rating={review.rating}
-                  reviewText={review.text}
-                />
-              ))}
+          <section className="reviews-section">
+            <div className="reviews-header">
+              <h3>Reviews</h3>
+              {UserInformation.reviews.length > 0 ? (
+                <div className="reviews-container">
+                  {UserInformation.reviews.map((review, index) => (
+                    <Review
+                      key={index}
+                      name={review.name}
+                      rating={review.rating}
+                      reviewText={review.text}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="no-reviews-container">No Reviews Yet</div>
+              )}
+              <div className="carpool-preference-buttons"></div>
             </div>
-          ) : (
-            <div className="no-reviews-container">No Reviews Yet</div>
-          )}
-          <div className="carpool-preference-buttons"></div>
-        </div>
-      </section></>): (
+          </section>
+        </>
+      ) : (
         // Render a loading message or handle loading state
         <div>Loading...</div>
       )}
-      {/* <nav className="navigation">
-<button className="navigation-button"> Button</button>
-<button className="navigation-button"> Button</button>
-<button className="navigation-button">Message</button>
-</nav> */}
+      <Navbar />
     </div>
   );
 };

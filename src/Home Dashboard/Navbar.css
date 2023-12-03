@@ -1,0 +1,39 @@
+/* Navbar.css */
+
+.navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #d5ebfc;  /* Change background color to light blue */
+  padding: 5px;
+  /*border-top: 1px solid #ccc;*/
+}
+
+.navigation-button {
+  background-color: transparent;  /* Change background color to clear */
+  color: black;  /* Change text color to black */
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation-button:hover {
+  background-color: #9dbdff; /* Change hover color to a slightly different shade of light blue */
+}
+
+.navigation-button:not(:last-child) {
+  margin-right: 10px;
+}
+.navigation.icon {
+    font-size: 25px;
+    color: blue;
+}

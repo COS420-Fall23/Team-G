@@ -1,0 +1,54 @@
+.time-slot-selector-container {
+  display: flex; /* Display items side by side */
+}
+
+.time-slot-selector {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Define the constant width for columns */
+.time-slot-selector th,
+.time-slot-selector td {
+  flex-shrink: 0;
+  user-select: none;
+  width: 120px;
+  height: 18px;
+  white-space: nowrap;
+}
+
+.time-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 10px;
+  width: 80px; /* Set a fixed size */
+  height: 21.86px;
+  font-size: small;
+}
+
+.time-labels {
+  padding-top: 25px;
+  flex-shrink: 0;
+  width: 80px; /* Set a fixed size */
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Define colors based on state */
+.unavailable {
+  background-color: lightgray;
+}
+
+.traveling-to {
+  background-color: lightgreen;
+}
+
+.traveling-home {
+  background-color: lightblue;
+}
