@@ -30,7 +30,7 @@ const SearchResult = ({ userInformation, distance=0, time="12:00" }) => {
       <div className="search-result" onClick={handleClick}>
         <div>
             <div className="title">
-                <div className="user-icon">👤</div>
+                <img src={userInformation.profileImageUrl} alt="User Profile" className="user-icon"/>
                 <h2> {userInformation.name} </h2>
             </div>
             <div className="review-stars">{stars}</div>
