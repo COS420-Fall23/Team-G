@@ -6,10 +6,10 @@
  * Todo:
  * function to get users that match time and location criteria
  */
-import { db } from './firebaseConfig';
-import { collection, query, where, doc } from "firebase/firestore";
+import { db, storage } from './firebaseConfig';
+import { collection, query, where, doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
-import SearchResult from './Home Dashboard/SearchResult';
 
 export const GetUserByUid = (uid) => {
     const userRef = doc(db, "UserInformation", uid);
@@ -39,4 +39,37 @@ export const GetAllWithMajor = (major) => {
     const userQuery = query(collection(db, "UserInformation"), where("major", "==", major));
     const [value, loading, error] = useCollection(userQuery);
     return [value, loading, error];
+};
+
+export const UpdateUserInformation = (uid, UserInformation) => {
+    updateDoc(doc(db, "UserInformation", uid), UserInformation);
+    return;
+}
+
+export const UpdateUserImage = (file, uid) => {
+  // Create a reference to the storage location
+  const storageRef = ref(storage, `profile_pictures/${file.name}`);
+
+  // Start the upload task
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      // handle progress
+    },
+    (error) => {
+      console.log(error);
+      // handle error
+    },
+    () => {
+      // Get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+        console.log(url);
+        // Save this URL to the user's profile in Firestore
+        const userRef = doc(db, "UserInformation", uid);
+        updateDoc(userRef, { profileImageUrl: url });
+      });
+    }
+  );
 };

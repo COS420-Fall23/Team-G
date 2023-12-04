@@ -2,109 +2,101 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ProfilePage from "./ProfilePage";
-import { getDoc } from "firebase/firestore";
 
-jest.mock('../firebaseConfig', () => ({
-  db: {},
-}));
-
-jest.mock("firebase/firestore", () => ({
-  doc: jest.fn(),
-  getDoc: jest.fn(),
-}));
-
-const RenderProfilePage = () => {
-  render(
-    <BrowserRouter>
-      <ProfilePage />
-    </BrowserRouter>
-  );
+// Mocks
+const mockUserData = {
+  name: "John Doe",
+  major: "Computer Science",
+  aboutMeText: "Passionate about technology.",
+  preferences: "Non-smoker, enjoys music",
+  reviews: [
+    { name: "Alice", rating: 5, text: "Great experience!" },
+    { name: "Bob", rating: 4, text: "Very punctual and friendly." }
+  ],
+  profileImageUrl: "url/to/image"
 };
 
-describe("ProfilePage Component", () => {
-  const UserInformation = {
-    name: "John Doe",
-    major: "Computer Science",
-    aboutMeText: "Passionate about technology and innovation.",
-    preferences: "Prefers non-smokers and no pets in the car.",
-    reviews: [
-      { name: "Ben Smith", rating: 4, text: "Pretty Good" },
-      { name: "Mark Wahlburg", rating: 3.5, text: "No Complaints" },
-      {
-        name: "Dr. Fisk",
-        rating: 5,
-        text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review.",
-      },
-    ],
-  };
+jest.mock("../DatabaseFacade", () => ({
+  GetUserByUid: () => mockUserData,
+  UpdateUserInformation: jest.fn(),
+  UpdateUserImage: jest.fn()
+}));
 
-  beforeEach(() => {
-    getDoc.mockResolvedValue({
-      exists: () => true,
-      data: () => UserInformation,
+describe("ProfilePage Component Tests", () => {
+  
+  test("should display the user's name", () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    expect(screen.getByText(mockUserData.name)).toBeInTheDocument();
+  });
+
+  test("should display the user's major", () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.major, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+  });
+
+  test("should display the About Me text", () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.aboutMeText, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+  });
+
+  test("should display carpool preferences", () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.preferences, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
+  });
+
+  test("should display reviews from specific individuals", () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    mockUserData.reviews.forEach((review) => {
+      expect(screen.getByText(review.text)).toBeInTheDocument();
     });
   });
 
-  test("displays the name", async () => {
-    RenderProfilePage();
-    const nameElement = await screen.findByText("John Doe");
-    expect(nameElement).toBeInTheDocument();
+  test("should create text input fields when edit profile is clicked", async () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    fireEvent.click(screen.getByText("Edit Profile"));
+
+    const textFields = screen.getAllByRole("textbox");
+    expect(textFields.length).toBe(3);
   });
 
-  test("displays the major", async () => {
-    RenderProfilePage();
-    const pattern = new RegExp(UserInformation.major, "i");
-    const majorElement = await screen.findByText(pattern)
-    expect(majorElement).toBeInTheDocument();
+  test("should remove text input fields when edit profile is clicked twice", async () => {
+    render(
+      <BrowserRouter>
+        <ProfilePage />
+      </BrowserRouter>
+    );
+    const button = screen.getByText("Edit Profile");
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    const textFields = screen.queryAllByRole("textbox");
+    expect(textFields.length).toBe(0);
   });
-
-  test("displays the about me text", async () => {
-    RenderProfilePage();
-    const pattern = new RegExp(UserInformation.aboutMeText, "i");
-    expect(await screen.findByText(pattern)).toBeInTheDocument();
-  });
-
-  test("displays the carpool preferences", async () => {
-    RenderProfilePage();
-    const preferencesPattern = new RegExp(UserInformation.preferences, "i");
-    expect(await screen.findByText(preferencesPattern)).toBeInTheDocument();
-  });
-
-  test("displays reviews from specific individuals", async () => {
-    RenderProfilePage();
-    UserInformation.reviews.forEach(async (review) => {
-      expect(await screen.findByText(review.name)).toBeInTheDocument();
-    });
-  });
-
-  test("clicking edit creates 3 text fields", async () => {
-    // Render the profile page
-    RenderProfilePage();
-
-    // Get the edit button and click it
-    const editButton = await screen.findByText("Edit Profile");
-    expect(editButton).toBeInTheDocument();
-    
-    fireEvent.click(editButton);
-    
-    // Expect three text input fields to be in the page
-    expect(screen.getAllByRole("textbox").length).toBe(3);
-  });
-
-
-  test("clicking edit again removes the text fields", async () => {
-    // Render the profile page
-    RenderProfilePage();
-
-    // Get the edit button and click it
-    //const editButton = await screen.findByText("Edit Profile");
-    //expect(editButton).toBeInTheDocument();
-    
-    //fireEvent.click(editButton);
-    //fireEvent.click(editButton);
-
-    // Expect three text input fields to be in the page
-    //expect(screen.queryAllByRole("textbox").length).toBe(0);
-  });
-  //
 });

@@ -9,14 +9,13 @@
   "Request Ride", and "Message" buttons by setting the corresponding props when 
   calling the UserPage component.
 */
-import { React, useState, useEffect } from 'react';
+import { React } from 'react';
 import Review from './Review.jsx';
 import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar.jsx'
-import { db } from '../firebaseConfig.js';
-import { doc, getDoc } from "firebase/firestore";
 import { useParams } from 'react-router-dom';
+import { GetUserByUid } from "../DatabaseFacade";
 
 const UserPage = ({
   customuid,
@@ -29,23 +28,7 @@ const UserPage = ({
     uid = customuid
   }
 
-  const [UserInformation, setUserInformation] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      const docRef = doc(db, "UserInformation", uid);//todo: set based on logged in user
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setUserInformation(docSnap.data())
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
-
-    fetchData();
-  }, []);
+  let UserInformation = GetUserByUid(uid)
 
   //todo: check if there is incoming ride, and enable accept ride
 
@@ -76,7 +59,7 @@ const UserPage = ({
 
       <section className="user-section">
         <div className="user-info">
-          <div className="user-image"></div>
+        <img src={UserInformation.profileImageUrl} alt="User Profile" className="user-image"/>
           <h2>{UserInformation.name}</h2>
           <p>
             <strong>Major:</strong> {UserInformation.major}
