@@ -11,11 +11,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Toolbar,
   Box,
   AppBar,
@@ -29,6 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import PeopleIcon from "@mui/icons-material/People";
 import MapIcon from "@mui/icons-material/Map";
+import Navbar from './Navbar.jsx'
 
 const drawerWidth = 240;
 
@@ -74,80 +70,14 @@ const Notifications = () => {
     },
   ];
   return (
-    <Box sx={{ display: 'flex' }}>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                <Toolbar>
-                    {isMobile && (
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    )}
-                    <Typography variant="h6" noWrap component="div">
-                        Notifications
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        <Drawer
-          variant={isMobile ? "temporary" : "permanent"}
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <List>
-              {[
-                "Drivers",
-                "Ride Requests",
-                "Map",
-                "Profile",
-                "Notifications",
-                "Back",
-              ].map((text, index) => (
-                <ListItem
-                  button
-                  key={text}
-                  onClick={
-                    index === 3
-                      ? (event) => handleProfile(event)
-                      : index === 4
-                      ? (event) => handleNotifications(event)
-                      : index === 5
-                      ? (event) => handleBackButtonClick(event)
-                      : null
-                  }
-                >
-                  <ListItemIcon>
-                    {index === 0 ? (
-                      <DirectionsCarIcon />
-                    ) : index === 1 ? (
-                      <PeopleIcon />
-                    ) : (
-                      <MapIcon />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
+    <Box>
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div">
+          Notifications
+        </Typography>
+      </Toolbar>
+    </AppBar>
         <div className="app">
       <div className="notification-list">
         {notifications.map((notification) => (
@@ -155,7 +85,9 @@ const Notifications = () => {
         ))}
       </div>
     </div>
+    <Navbar />
       </Box>
+      
       
   );
   
