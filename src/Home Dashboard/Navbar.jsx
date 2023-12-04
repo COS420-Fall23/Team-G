@@ -30,7 +30,7 @@ const Navbar = () => {
 
   const handleNotificationsClick = () => {
     // Handle the logic for handling the notifications click
-    navigate(0);
+    navigate("/Notifications");
     console.log('Notifications clicked');
   };
 

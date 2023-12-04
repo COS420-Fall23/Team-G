@@ -8,6 +8,7 @@ import ProfilePage from './Home Dashboard/ProfilePage';
 import UserPage from './Home Dashboard/UserPage';
 import Notifications from './Home Dashboard/Notifications';
 import PreferencesPage from './Home Dashboard/PreferencesPage';
+import AvailableDrivers from './Home Dashboard/AvailableDrivers';
 
 function MainRouter() {
   return (
@@ -25,6 +26,7 @@ function MainRouter() {
         <Route path="/Dashboard" element={<Homescreen/>} />
         <Route path="/Notifications" element={<Notifications/>}/>
         <Route path="/Preferences" element={<PreferencesPage/>}/>
+        <Route path="/AvailableDrivers" element={<AvailableDrivers/>}/>
       </Routes>
     </Router>
   );
