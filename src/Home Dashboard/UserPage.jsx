@@ -9,28 +9,30 @@
   "Request Ride", and "Message" buttons by setting the corresponding props when 
   calling the UserPage component.
 */
-import React from 'react';
+import { React } from 'react';
 import Review from './Review.jsx';
 import './UserPage.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar.jsx'
+import { useParams } from 'react-router-dom';
+import { GetUserByUid } from "../DatabaseFacade";
 
 const UserPage = ({
+  customuid,
   EnableAcceptRide = false,
-  EnableRequestRide = false,
-  EnableMessage = true,
-  UserInformation = {
-    name: 'John Doe',
-    major: 'Computer Science',
-    aboutMeText: 'Passionate about technology and innovation.',
-    preferences: 'Prefers non-smokers and no pets in the car.',
-    reviews: [
-      { name: "Ben Smith", rating: 4, text: "Pretty Good" },
-      { name: "Mark Wahlburg", rating: 3.5, text: "No Complaints" },
-      { name: "Dr. Fisk", rating: 5, text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review." }
-    ]
-  }
+  EnableRequestRide = true,
+  EnableMessage = true
 }) => {
-    const navigate = useNavigate();
+  let { uid } = useParams();
+  if(!uid){
+    uid = customuid
+  }
+
+  let UserInformation = GetUserByUid(uid)
+
+  //todo: check if there is incoming ride, and enable accept ride
+
+  const navigate = useNavigate();
     
   const handleBackButtonClick = () => {
     navigate(-1);
@@ -47,6 +49,8 @@ const UserPage = ({
 
   return (
     <div className="profile-page">
+      {UserInformation ? (<>
+      <section className="user-section">
       <header className="header">
         <button className="back-button" onClick={handleBackButtonClick}>
           Back
@@ -55,7 +59,7 @@ const UserPage = ({
 
       <section className="user-section">
         <div className="user-info">
-          <div className="user-image"></div>
+        <img src={UserInformation.profileImageUrl} alt="User Profile" className="user-image"/>
           <h2>{UserInformation.name}</h2>
           <p>
             <strong>Major:</strong> {UserInformation.major}
@@ -89,27 +93,31 @@ const UserPage = ({
           <div className="carpool-preference-buttons"></div>
         </div>
       </section>
-
-      <nav className="navigation">
-        {EnableRequestRide && (
-          <button
-            className="navigation-button"
-            onClick={handleRequestRideClick}
-          >
-            Request Ride
-          </button>
-        )}
-        {EnableAcceptRide && (
-          <button className="navigation-button" onClick={handleAcceptRideClick}>
-            Accept Ride
-          </button>
-        )}
-        {EnableMessage && (
-          <button className="navigation-button" onClick={handleMessageClick}>
-            Message
-          </button>
-        )}
-      </nav>
+      <nav className="choices">
+      {EnableRequestRide && (
+        <button
+          className="choice-button"
+          onClick={handleRequestRideClick}
+        >
+          Request Ride
+        </button>
+      )}
+      {EnableAcceptRide && (
+        <button className="choice-button" onClick={handleAcceptRideClick}>
+          Accept Ride
+        </button>
+      )}
+      {EnableMessage && (
+        <button className="choice-button" onClick={handleMessageClick}>
+          Message
+        </button>
+      )}
+    </nav>
+    </section></>): (
+        // Render a loading message or handle loading state
+        <div>Loading...</div>
+      )}
+    <Navbar />
     </div>
   );
 };

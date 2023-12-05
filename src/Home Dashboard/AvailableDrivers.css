@@ -1,0 +1,35 @@
+.available-drivers {
+    font-family: Arial;
+    padding: 20px;
+    background-color: #f5f5f5;
+    max-width: 400px;
+    margin: auto;
+    min-height: 640px;
+}
+.search-result {
+    border: 2px solid blue;
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+.search-result:hover {
+  background-color: lightgray;
+}
+.title {
+    display: flex;
+    justify-content: left;
+}
+.user-icon {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-size: larger;
+    border-radius: 50%;
+    border: 2px solid black;
+    align-items:center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
