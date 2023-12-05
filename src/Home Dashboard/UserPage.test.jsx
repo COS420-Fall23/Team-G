@@ -1,92 +1,76 @@
-/*
- * Filename: c:\Users\20neu\Desktop\COS420\Team-G\src\Home Dashboard\ProfilePage.test copy.jsx
- * Path: c:\Users\20neu\Desktop\COS420\Team-G
- * Created Date: Monday, November 20th 2023, 12:18:06 pm
- * Author: David Neufeld
- * 
- * Copyright (c) 2023 Your Company
- */
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import UserPage from "./UserPage"; 
-import { getDoc } from "firebase/firestore";
+import { render, screen } from "@testing-library/react";
+import UserPage from "./UserPage";
 
-jest.mock('../firebaseConfig', () => ({
-  db: {},
-}));
-
-jest.mock("firebase/firestore", () => ({
-  doc: jest.fn(),
-  getDoc: jest.fn(),
-}));
-
-const RenderUserPage = () => {
-  render(
-    <BrowserRouter>
-      <UserPage 
-        EnableAcceptRide={true}
-        EnableRequestRide={true}
-        EnableMessage={true}
-      />
-    </BrowserRouter>
-  );
+// Mocks
+const mockUserData = {
+  name: "John Doe",
+  major: "Computer Science",
+  aboutMeText: "Passionate about technology.",
+  preferences: "Non-smoker, enjoys music",
+  reviews: [
+    { name: "Alice", rating: 5, text: "Great experience!" },
+    { name: "Bob", rating: 4, text: "Very punctual and friendly." }
+  ],
+  profileImageUrl: "url/to/image"
 };
 
+jest.mock("../DatabaseFacade", () => ({
+  GetUserByUid: () => mockUserData,
+  UpdateUserInformation: jest.fn(),
+  UpdateUserImage: jest.fn()
+}));
 
-describe("ProfilePage Component", () => {
-  const UserInformation = {
-    name: "John Doe",
-    major: "Computer Science",
-    aboutMeText: "Passionate about technology and innovation.",
-    preferences: "Prefers non-smokers and no pets in the car.",
-    reviews: [
-      { name: "Ben Smith", rating: 4, text: "Pretty Good" },
-      { name: "Mark Wahlburg", rating: 3.5, text: "No Complaints" },
-      {
-        name: "Dr. Fisk",
-        rating: 5,
-        text: "My review is written for the sole purpose of demonstrating what happens when the site has to render a longer review.",
-      },
-    ],
-  };
-
-  beforeEach(() => {
-    getDoc.mockResolvedValue({
-      exists: () => true,
-      data: () => UserInformation,
-    });
+describe("ProfilePage Component Tests", () => {
+  
+  test("should display the user's name", () => {
+    render(
+      <BrowserRouter>
+        <UserPage />
+      </BrowserRouter>
+    );
+    expect(screen.getByText(mockUserData.name)).toBeInTheDocument();
   });
 
-  test("displays the name", async () => {
-    RenderUserPage();
-    const nameElement = await screen.findByText("John Doe");
-    expect(nameElement).toBeInTheDocument();
+  test("should display the user's major", () => {
+    render(
+      <BrowserRouter>
+        <UserPage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.major, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
   });
 
-  test("displays the major", async () => {
-    RenderUserPage();
-    const pattern = new RegExp(UserInformation.major, "i");
-    const majorElement = await screen.findByText(pattern)
-    expect(majorElement).toBeInTheDocument();
+  test("should display the About Me text", () => {
+    render(
+      <BrowserRouter>
+        <UserPage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.aboutMeText, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
   });
 
-  test("displays the about me text", async () => {
-    RenderUserPage();
-    const pattern = new RegExp(UserInformation.aboutMeText, "i");
-    expect(await screen.findByText(pattern)).toBeInTheDocument();
+  test("should display carpool preferences", () => {
+    render(
+      <BrowserRouter>
+        <UserPage />
+      </BrowserRouter>
+    );
+    const pattern = new RegExp(mockUserData.preferences, "i");
+    expect(screen.getByText(pattern)).toBeInTheDocument();
   });
 
-  test("displays the carpool preferences", async () => {
-    RenderUserPage();
-    const preferencesPattern = new RegExp(UserInformation.preferences, "i");
-    expect(await screen.findByText(preferencesPattern)).toBeInTheDocument();
-  });
-
-  test("displays reviews from specific individuals", async () => {
-    RenderUserPage();
-    UserInformation.reviews.forEach(async (review) => {
-      expect(await screen.findByText(review.name)).toBeInTheDocument();
+  test("should display reviews from specific individuals", () => {
+    render(
+      <BrowserRouter>
+        <UserPage />
+      </BrowserRouter>
+    );
+    mockUserData.reviews.forEach((review) => {
+      expect(screen.getByText(review.text)).toBeInTheDocument();
     });
   });
 });
