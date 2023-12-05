@@ -7,11 +7,11 @@ const PreferencesPage = () => {
   const [smoking, setSmoking] = useState('');
   const [pets, setPets] = useState('');
   const [stops, setStops] = useState('');
-  const [selectedTimes, setSelectedTimes] = useState([]);
+  const [selectedTimes /*,setSelectedTimes*/] = useState([]);
 
-  const handleTimeSelection = (time) => {
-    setSelectedTimes((prevTimes) => [...prevTimes, time]);
-  };
+  //  const handleTimeSelection = (time) => {
+  //    setSelectedTimes((prevTimes) => [...prevTimes, time]);
+  // };
 
   return (
     <div className="container">
