@@ -18,6 +18,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'; // Added for hamburger menu
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PeopleIcon from '@mui/icons-material/People';
+import ProfileIcon from '@mui/icons-material/PersonRounded';
 import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +36,10 @@ const Homescreen = () => {
       event.preventDefault();
       navigate('/ProfilePage');
     };
+    const handleNotifications = (event) => {
+        event.preventDefault();
+        navigate('/Notifications');
+      };
     const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
     const theme = useTheme();
     // Breakpoint for mobile devices
@@ -54,7 +59,7 @@ const Homescreen = () => {
                 {['Drivers', 'Ride Requests', 'Map'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
-                            {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                            {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : index === 3 ? <ProfileIcon /> : <MapIcon />}
                         </ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -100,10 +105,10 @@ const Homescreen = () => {
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['Drivers', 'Ride Requests', 'Map','Profile','Logout'].map((text, index) => (
-                            <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): null}>
+                        {['Drivers', 'Ride Requests', 'Map','Profile','Notifications','Logout'].map((text, index) => (
+                            <ListItem button key={text} onClick={index === 3 ? (event)=>handleProfile(event): index ===4 ? (event)=>handleNotifications(event): null}>
                                 <ListItemIcon>
-                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : <MapIcon />}
+                                    {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon />  : index === 3 ? <ProfileIcon />: <MapIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
