@@ -7,7 +7,7 @@
  * function to get users that match time and location criteria
  */
 import { db, storage } from './firebaseConfig';
-import { collection, query, where, doc, updateDoc } from "firebase/firestore";
+import { collection, query, where,getDocs, doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
@@ -39,6 +39,30 @@ export const GetAllWithMajor = (major) => {
     const userQuery = query(collection(db, "UserInformation"), where("major", "==", major));
     const [value, loading, error] = useCollection(userQuery);
     return [value, loading, error];
+};
+
+export const GetNotificationsForuid = async (uid) => {
+  const notificationsRef = collection(db, 'Notifications');
+  const userQuery = query(notificationsRef, where('uid', '==', uid));
+
+  try {
+    const querySnapshot = await getDocs(userQuery);
+    const notifications = [];
+    querySnapshot.forEach((doc) => {
+      const { uid, title, message, hasOptionalFeature } = doc.data();
+      // Add selected fields to the notifications array
+      notifications.push({
+        id: uid,
+        title: title,
+        message: message,
+        hasOptionalFeature: hasOptionalFeature,
+      });
+    });
+    return notifications;
+  } catch (error) {
+    console.error('Error getting notifications:', error);
+    throw error; // Handle this error in the calling function if needed
+  }
 };
 
 export const UpdateUserInformation = (uid, UserInformation) => {

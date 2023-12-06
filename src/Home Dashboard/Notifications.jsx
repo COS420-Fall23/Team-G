@@ -1,13 +1,4 @@
-/**
- * This will be a page for notifications to appear in
- *
- *
- *
- *
- *
- *
- *
- */
+import React, { useState, useEffect } from 'react';
 import {
   Toolbar,
   Box,
@@ -15,15 +6,27 @@ import {
   Typography,
 } from "@mui/material";
 import NotificationComponent from './NotificationComponent';
-import Navbar from './Navbar.jsx'
-import notificationsData from './notificationsData.js'; // Importing notifications from the separate file
-//import { db } from '../firebaseConfig.js';
-//import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Navbar from './Navbar.jsx';
+import { GetNotificationsForuid } from "../DatabaseFacade";
 
 const Notifications = () => {
-  const uid = "user1" //todo: set based on logged in user
-  const userNotifications = notificationsData.userNotifications[uid] || [];
+  const fake_uid = "lU8cWcrGcmVNyqNZHpIz"; // Todo: set based on logged-in user
 
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const fetchedNotifications = await GetNotificationsForuid(fake_uid);
+        setNotifications(fetchedNotifications);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+        // Handle error, show a message, etc.
+      }
+    }
+
+    fetchData();
+  }, [fake_uid]);
 
   return (
     <Box>
@@ -36,7 +39,8 @@ const Notifications = () => {
       </AppBar>
       <div className="app">
         <div className="notification-list">
-          {userNotifications.map((notification) => (
+          {/* Display notifications as components */}
+          {notifications.map((notification) => (
             <NotificationComponent key={notification.id} notification={notification} />
           ))}
         </div>
