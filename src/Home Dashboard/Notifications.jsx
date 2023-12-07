@@ -9,8 +9,6 @@ const Notifications = () => {
 
   const [notifications, setNotifications] = useState([]);
 
-  const accepted = [];
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -35,13 +33,7 @@ const Notifications = () => {
         </Toolbar>
       </AppBar>
       <div className="app">
-      <div className="Accepted list" style={{ padding: "20px" }}>
-          {/* Display notifications as components */}
-          {accepted.map((accepted) => (
-            <NotificationComponent key={accepted.id} accepted={accepted} />
-          ))}
-        </div>
-        <div className="notification-list" >
+        <div className="notification-list" style={{ padding: "20px" }}>
           {/* Display notifications as components */}
           {notifications.map((notification) => (
             <NotificationComponent
