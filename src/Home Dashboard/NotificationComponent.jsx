@@ -6,7 +6,7 @@ import "./NotificationComponent.css";
 const NotificationComponent = ({ notification, onDismiss }) => {
   const [dismissed, setDismissed] = useState(false);
   const [optionalFeatureAccepted, setOptionalFeatureAccepted] = useState(false);
-
+  const [color, setColor] = useState("white");
   const { hasOptionalFeature } = notification;
 
   const handleDismiss = () => {
@@ -18,7 +18,7 @@ const NotificationComponent = ({ notification, onDismiss }) => {
 
   const handleAccept = () => {
     setOptionalFeatureAccepted(true);
-
+    setColor("green");
     // You can perform additional actions when the 'accept' button is clicked
   };
 
@@ -30,7 +30,7 @@ const NotificationComponent = ({ notification, onDismiss }) => {
   return (
     !dismissed && (
       <div className="notification-container">
-        <div className="notification">
+        <div className="notification" style={{ backgroundColor: color }}>
           <h3>{notification.title}</h3>
           <p>{notification.message}</p>
           {hasOptionalFeature && !optionalFeatureAccepted ? (
