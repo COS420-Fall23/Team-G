@@ -1,7 +1,7 @@
 // NotificationComponent.jsx
 
-import React, { useState } from 'react';
-import './NotificationComponent.css';
+import React, { useState } from "react";
+import "./NotificationComponent.css";
 
 const NotificationComponent = ({ notification, onDismiss }) => {
   const [dismissed, setDismissed] = useState(false);
@@ -18,6 +18,7 @@ const NotificationComponent = ({ notification, onDismiss }) => {
 
   const handleAccept = () => {
     setOptionalFeatureAccepted(true);
+
     // You can perform additional actions when the 'accept' button is clicked
   };
 
@@ -30,6 +31,8 @@ const NotificationComponent = ({ notification, onDismiss }) => {
     !dismissed && (
       <div className="notification-container">
         <div className="notification">
+          <h3>{notification.title}</h3>
+          <p>{notification.message}</p>
           {hasOptionalFeature && !optionalFeatureAccepted ? (
             <div className="optional-feature">
               <button className="accept-button" onClick={handleAccept}>
@@ -44,8 +47,6 @@ const NotificationComponent = ({ notification, onDismiss }) => {
               Dismiss
             </button>
           )}
-          <h3>{notification.title}</h3>
-          <p>{notification.message}</p>
         </div>
       </div>
     )
