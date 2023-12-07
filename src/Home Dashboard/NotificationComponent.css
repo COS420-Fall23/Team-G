@@ -1,32 +1,45 @@
 /* NotificationComponent.css */
 
 .notification-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 25vh;
-  }
-  
-  .notification {
-    border: 2px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    max-width: 400px;
-    width: 100%;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
 
-  .notification:first-child {
-    margin-top: 40px; /* Add margin-top for the first notification */
-  }
-  
-  .notification h3 {
-    margin-top: 0;
-  }
-  
-  .notification p {
-    margin-bottom: 0;
-  }
-  
+.notification {
+  border: 2px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.notification:first-child {
+  margin-top: 40px; /* Add margin-top for the first notification */
+}
+.notification:last-child {
+  margin-bottom: 60px; /* Add margin-top for the first notification */
+}
+.notification h3 {
+  margin-top: 0;
+}
+
+.notification p {
+  margin-bottom: 0;
+}
+
+.dismiss-button {
+  position: static;
+  float: right;
+  margin-top: -60px;
+}
+
+.notification h3 {
+  display: flex;
+  justify-content: center;
+}

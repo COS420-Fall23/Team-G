@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Toolbar,
-  Box,
-  AppBar,
-  Typography,
-} from "@mui/material";
-import NotificationComponent from './NotificationComponent';
-import Navbar from './Navbar.jsx';
+import React, { useState, useEffect } from "react";
+import { Toolbar, Box, AppBar, Typography } from "@mui/material";
+import NotificationComponent from "./NotificationComponent";
+import Navbar from "./Navbar.jsx";
 import { GetNotificationsForuid } from "../DatabaseFacade";
 
 const Notifications = () => {
@@ -38,10 +33,13 @@ const Notifications = () => {
         </Toolbar>
       </AppBar>
       <div className="app">
-        <div className="notification-list">
+        <div className="notification-list" style={{ padding: "20px" }}>
           {/* Display notifications as components */}
           {notifications.map((notification) => (
-            <NotificationComponent key={notification.id} notification={notification} />
+            <NotificationComponent
+              key={notification.id}
+              notification={notification}
+            />
           ))}
         </div>
       </div>
