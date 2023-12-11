@@ -8,24 +8,33 @@ const RideRequestForm = () => {
   const [headingTo, setHeadingTo] = useState('');
   const [desiredHour, setDesiredHour] = useState('');
   const [desiredMinute, setDesiredMinute] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Display message
-  const message = "Request submitted";
-  alert(message);
+    // Display message
+    const message = "Request submitted";
+    alert(message);
   
-  // Clear inputs
-  setLeavingFrom('');
-  setHeadingTo('');
-  setDesiredHour('');
-  setDesiredMinute('');
-};
+    // Clear inputs
+    setLeavingFrom('');
+    setHeadingTo('');
+    setDesiredHour('');
+    setDesiredMinute('');
+
+    // Clear address
+    setAddress('');
+    setCity('');
+    setState('');
+    setZipCode('');
+  };
 
   const handleContinue = () => {
-    // Add logic to continue to drivers
     navigate("/AvailableDrivers")
   };
 
@@ -42,58 +51,71 @@ const RideRequestForm = () => {
       <p>Leaving from: {leavingFrom}</p>
       <p>Heading to: {headingTo}</p>
       <p>Desired time: {desiredHour.toString().padStart(2, "0")}:{desiredMinute.toString().padStart(2, "0")}</p>
+      {leavingFrom === "Home" && (
+        <div>
+          <p>Address: {address}</p>
+          <p>City: {city}</p>
+          <p>State: {state}</p>
+          <p>Zip Code: {zipCode}</p>
+        </div>
+      )}
     </div>
   );
+
+  const ChangeStart = (value) => {
+    setLeavingFrom(value)
+    if(value==="Campus") setHeadingTo("Home");
+    else if(value==="Home") setHeadingTo("Campus")
+  }
+  const ChangeEnd = (value) => {
+    setHeadingTo(value)
+    if(value==="Campus") setLeavingFrom("Home");
+    else if(value==="Home") setLeavingFrom("Campus")
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="leavingFrom">Leaving from</label>
-          <select id="leavingFrom" value={leavingFrom} onChange={(e) => setLeavingFrom(e.target.value)}>
+          <select id="leavingFrom" value={leavingFrom} onChange={(e) => ChangeStart(e.target.value)}>
             <option value="" disabled>Select a location</option>
-            <option value="Fogler Lbrary">Fogler Lbrary</option>
-            <option value="Neville Hall">Neville Hall</option>
-            <option value="Barrows Hall">Barrows Hall</option>
-            <option value="Donald P. Corbett Building">Donald P. Corbett Building</option>
-            <option value="Ferland Engineering Education and Design Center">Ferland Engineering Education and Design Center</option>
-            <option value="Murray Hall">Murray Hall</option>
-            <option value="Estabrook Hall">Estabrook Hall</option>
-            <option value="Williams Hall">Williams Hall</option>
-            <option value="Dunn Hall">Dunn Hall</option>
-            <option value="Lord Hall">Lord Hall</option>
-            <option value="Nutting Hall">Nutting Hall</option>
-            <option value="Boardman Hall">Boardman Hall</option>
-            <option value="Boudreau Hall">Boudreau Hall</option>
-            <option value="Crosby Hall">Crosby Hall</option>
-            <option value="The Ave">The Ave</option>
-            <option value="Orchard Trails">Orchard Trails</option>
-            <option value="The Reserve">The Reserve</option>
+            <option value="Campus">Campus</option>
+            <option value="Home">Home</option>
           </select>
         </div>
+        {leavingFrom === "Home" && (
+          <div>
+            <label htmlFor="address">Address</label>
+            <input id="address" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <label htmlFor="city">City</label>
+            <input id="city" type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+            <label htmlFor="state">State</label>
+            <input id="state" type="text" value={state} onChange={(e) => setState(e.target.value)} />
+            <label htmlFor="zipCode">Zip Code</label>
+            <input id="zipCode" type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+          </div>
+        )}
         <div>
           <label htmlFor="headingTo">Heading to</label>
-          <select id="headingTo" value={headingTo} onChange={(e) => setHeadingTo(e.target.value)}>
+          <select id="headingTo" value={headingTo} onChange={(e) => ChangeEnd(e.target.value)}>
             <option value="" disabled>Select a location</option>
-            <option value="Fogler Lbrary">Fogler Lbrary</option>
-            <option value="Neville Hall">Neville Hall</option>
-            <option value="Barrows Hall">Barrows Hall</option>
-            <option value="Donald P. Corbett Building">Donald P. Corbett Building</option>
-            <option value="Ferland Engineering Education and Design Center">Ferland Engineering Education and Design Center</option>
-            <option value="Murray Hall">Murray Hall</option>
-            <option value="Estabrook Hall">Estabrook Hall</option>
-            <option value="Williams Hall">Williams Hall</option>
-            <option value="Dunn Hall">Dunn Hall</option>
-            <option value="Lord Hall">Lord Hall</option>
-            <option value="Nutting Hall">Nutting Hall</option>
-            <option value="Boardman Hall">Boardman Hall</option>
-            <option value="Boudreau Hall">Boudreau Hall</option>
-            <option value="Crosby Hall">Crosby Hall</option>
-            <option value="The Ave">The Ave</option>
-            <option value="Orchard Trails">Orchard Trails</option>
-            <option value="The Reserve">The Reserve</option>
+            <option value="Campus">Campus</option>
+            <option value="Home">Home</option>
           </select>
         </div>
+        {headingTo === "Home" && (
+          <div>
+            <label htmlFor="address">Address</label>
+            <input id="address" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <label htmlFor="city">City</label>
+            <input id="city" type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+            <label htmlFor="state">State</label>
+            <input id="state" type="text" value={state} onChange={(e) => setState(e.target.value)} />
+            <label htmlFor="zipCode">Zip Code</label>
+            <input id="zipCode" type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+          </div>
+        )}
         <div>
           <label htmlFor="desiredTime">Desired Time</label>
           <div className="time-selector">
@@ -111,7 +133,7 @@ const RideRequestForm = () => {
             </select>
           </div>
         </div>
-      <button onClick={handleContinue}>Continue to drivers</button>
+        <button onClick={handleContinue}>Continue to drivers</button>
         <button type="submit">Submit Ride Request</button>
       </form>
       {leavingFrom && headingTo && desiredHour && desiredMinute && summary}
