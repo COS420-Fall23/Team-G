@@ -22,16 +22,24 @@
   padding: 10px 20px;
 }
 
-.selected-times ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.selected-times li {
-  margin-bottom: 10px;
-}
-
 .container > * {
   border-top: 1px solid black;
   padding-top: 20px;
+}
+
+.container button.selected {
+  background-color: green;
+  color: white;
+}
+
+.clear-button {
+  margin-top: 20px;
+}
+
+.clear-button button {
+  background-color: rgb(2, 196, 255);
+  color: white;
+}
+.spacing {
+  margin-bottom: 20px; /* Adjust the value as needed */
 }
