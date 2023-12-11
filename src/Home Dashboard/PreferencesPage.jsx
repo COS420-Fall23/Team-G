@@ -7,7 +7,7 @@ const PreferencesPage = () => {
   const [smoking, setSmoking] = useState('');
   const [pets, setPets] = useState('');
   const [stops, setStops] = useState('');
-  const [selectedTimes,setSelectedTimes] = useState([]);
+  //const [selectedTimes,setSelectedTimes] = useState([]);
   const timeSlotSelectorRef = useRef();
   
   // Store uid as a local variable

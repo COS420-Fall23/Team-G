@@ -9,6 +9,7 @@ import UserPage from './Home Dashboard/UserPage';
 import Notifications from './Home Dashboard/Notifications';
 import PreferencesPage from './Home Dashboard/PreferencesPage';
 import AvailableDrivers from './Home Dashboard/AvailableDrivers';
+import RideRequestForm from './Home Dashboard/RideRequestForm';
 
 function MainRouter() {
   return (
@@ -27,6 +28,7 @@ function MainRouter() {
         <Route path="/Notifications" element={<Notifications/>}/>
         <Route path="/Preferences" element={<PreferencesPage/>}/>
         <Route path="/AvailableDrivers" element={<AvailableDrivers/>}/>
+        <Route path="/RideRequestForm" element={<RideRequestForm/>}/>
       </Routes>
     </Router>
   );
