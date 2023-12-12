@@ -29,6 +29,7 @@ function MainRouter() {
         <Route path="/Preferences" element={<PreferencesPage/>}/>
         <Route path="/AvailableDrivers" element={<AvailableDrivers/>}/>
         <Route path="/RideRequestForm" element={<RideRequestForm/>}/>
+        <Route path="/Availability" element={<PreferencesPage/>}/>
       </Routes>
     </Router>
   );
