@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './PeferencesPage.css';
+import React, { useState, useRef } from 'react';
+import './PreferencesPage.css';
 import TimeSlotSelector from './TimeSlotSelector';
 import Navbar from './Navbar';
 
@@ -7,11 +7,21 @@ const PreferencesPage = () => {
   const [smoking, setSmoking] = useState('');
   const [pets, setPets] = useState('');
   const [stops, setStops] = useState('');
-  const [selectedTimes /*,setSelectedTimes*/] = useState([]);
+  //const [selectedTimes,setSelectedTimes] = useState([]);
+  const timeSlotSelectorRef = useRef();
+  
+  // Store uid as a local variable
+  //const uid = 'your_uid_here';
 
-  //  const handleTimeSelection = (time) => {
-  //    setSelectedTimes((prevTimes) => [...prevTimes, time]);
-  // };
+  //const handleTimeSelection = (time) => {
+  //  setSelectedTimes((prevTimes) => [...prevTimes, time]);
+  //};
+  
+  const handleClearTimeSlotSelector = () => {
+    if (timeSlotSelectorRef.current) {
+      timeSlotSelectorRef.current.clearSchedule();
+    }
+  };
 
   return (
     <div className="container">
@@ -81,18 +91,16 @@ const PreferencesPage = () => {
       
       {/* Available Times */}
       
-      <TimeSlotSelector/>
+      <TimeSlotSelector ref={timeSlotSelectorRef} />
       <Navbar/>
 
-      {/* Selected Times */}
+      {/* Clear Button */}
       
-      <div className="selected-times">
-        <h2>Selected Times:</h2>
-        <ul>
-          {selectedTimes.map((time) => (
-            <li key={time}>{time}</li>
-          ))}
-        </ul>
+      <div className="clear-button">
+        <button onClick={handleClearTimeSlotSelector}>Clear TimeSlot Selector</button>
+      </div>
+      <div className="spacing">
+        .
       </div>
     </div>
   );

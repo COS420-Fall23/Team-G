@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const handleSetUpRideClick = () => {
     // Handle the logic for handling the set up ride click
-    navigate(0);
+    navigate("/RideRequestForm");
     console.log('Set up ride clicked');
   };
 

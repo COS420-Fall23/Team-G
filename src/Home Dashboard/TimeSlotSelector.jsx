@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import './TimeSlotSelector.css';
 
-// Define the different states for a time slot
 const timeSlotStates = ['', 'traveling to', 'traveling home'];
 
 const TimeSlotSelector = () => {
-  // Create a state to hold the schedule
   const [schedule, setSchedule] = useState({});
+  const [clearGrid, setClearGrid] = useState(false);
 
-  // Function to handle the clicking of a time slot
-  const toggleTimeSlot = (day, time) => {
+  const toggleTimeSlot = (day, time, clearGrid) => {
+    if (clearGrid) {
+      setSchedule({});
+      setClearGrid(false);
+      return;
+    }
+
     const key = `${day}-${time}`;
-    // Get the current state of the time slot
     const currentStateIndex = schedule[key] || 0;
-    // Calculate the next state
     const nextStateIndex = (currentStateIndex + 1) % timeSlotStates.length;
-    // Update the schedule state with the next state
     setSchedule({
       ...schedule,
       [key]: nextStateIndex,
     });
   };
 
-  // Function to determine the class for the time slot
   const getTimeSlotClass = (stateIndex) => {
     switch (stateIndex) {
       case 1:
@@ -34,7 +34,6 @@ const TimeSlotSelector = () => {
     }
   };
 
-  // Create an array of times
   const times = [
     '8:00 AM',
     '9:00 AM',
@@ -51,13 +50,19 @@ const TimeSlotSelector = () => {
     '8:00 PM',
   ];
 
-  // Create an array of days
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const handleClearGrid = () => {
+    setSchedule({});
+    setClearGrid(true);
+  };
 
   return (
     <div className="time-slot-selector-container">
+      <div className="clear-button">
+        <button onClick={handleClearGrid}>Clear Grid</button>
+      </div>
       <div className="time-labels">
-        {/* Render the time labels */}
         {times.map((time) => (
           <div className="time-label" key={time}>
             {time}
@@ -82,9 +87,8 @@ const TimeSlotSelector = () => {
                     <td
                       key={key}
                       className={getTimeSlotClass(schedule[key])}
-                      onClick={() => toggleTimeSlot(day, time)}
+                      onClick={() => toggleTimeSlot(day, time, clearGrid)}
                     >
-                      {/* Render the state text or icon here */}
                       {timeSlotStates[schedule[key]]}
                     </td>
                   );
