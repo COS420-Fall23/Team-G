@@ -6,6 +6,7 @@ import MapIcon from '@mui/icons-material/Map';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import PersonIcon from '@mui/icons-material/PersonRounded';
 import NotificationsIcon from '@mui/icons-material/NotificationsRounded';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -34,6 +35,11 @@ const Navbar = () => {
     console.log('Notifications clicked');
   };
 
+  const handleAvailabilityClick = () => {
+    navigate("/Availability");
+    console.log('Availability clicked');
+  };
+
   return (
     <nav className="navigation">
       <button className="navigation-button" onClick={handleDashboardClick}>
@@ -51,6 +57,10 @@ const Navbar = () => {
       <button className="navigation-button" onClick={handleNotificationsClick}>
       <div className = "icon"> <NotificationsIcon /> </div>
         Notifications
+      </button>
+      <button className="navigation-button" onClick={handleAvailabilityClick}>
+      <div className = "icon"> <AccessTimeFilledIcon /> </div>
+        Availability
       </button>
     </nav>
   );
