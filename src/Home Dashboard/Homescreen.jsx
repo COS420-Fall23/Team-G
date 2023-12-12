@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapInterface from './MapInterface';
 import { 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText, 
   Toolbar, 
   AppBar, 
   Box, 
@@ -15,16 +10,16 @@ import {
   useMediaQuery
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'; // Added for hamburger menu
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import PeopleIcon from '@mui/icons-material/People';
-import ProfileIcon from '@mui/icons-material/PersonRounded';
-import MapIcon from '@mui/icons-material/Map';
 import LocationComponent from '../Location and Routing/LocationComponent';
-import { useNavigate } from 'react-router-dom';
 
 import RideRequestForm from '../Home Dashboard/RideRequestForm'; // Import the RideRequestForm component
+import { getDrivers } from '../DatabaseFacade';
+
 
 const drawerWidth = 240;
+
+
+
 
 const Homescreen = () => {
   const [location, setLocation] = useState({
@@ -33,21 +28,8 @@ const Homescreen = () => {
     error: null
   });
 
-  const navigate = useNavigate();
-
-  const handleProfile = (event) => {
-    event.preventDefault();
-    navigate('/ProfilePage');
-  };
-
-  const handleNotifications = (event) => {
-    event.preventDefault();
-    navigate('/Notifications');
-  };
-
   const [mobileOpen, setMobileOpen] = useState(false); // State to handle drawer for mobile view
   const theme = useTheme();
-  // Breakpoint for mobile devices
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDrawerToggle = () => {
@@ -58,20 +40,21 @@ const Homescreen = () => {
     setLocation(data);
   };
 
-//  const drawerContent = (
-    //<Box sx={{ overflow: 'auto' }}>
-      //<List>
-        //{['Drivers', 'Ride Requests', 'Map'].map((text, index) => (
-          //<ListItem button key={text}>
-            //<ListItemIcon>
-              //{index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : index === 3 ? <ProfileIcon /> : <MapIcon />}
-            //</ListItemIcon>
-            //<ListItemText primary={text} />
-          //</ListItem>
-        //))}
-      //</List>
-    //</Box>
-//  );
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const driversData = await getDrivers();
+        setDrivers(driversData);
+      } catch (error) {
+        console.error("Error fetching drivers: ", error);
+        // Handle error appropriately
+      }
+    };
+
+    fetchDrivers();
+  }, []);
+
+  const [drivers, setDrivers] = useState([]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -94,37 +77,7 @@ const Homescreen = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {['Drivers', 'Ride Requests', 'Map', 'Profile', 'Notifications', 'Logout'].map((text, index) => (
-              <ListItem
-                button
-                key={text}
-                onClick={index === 1 ? () => navigate('/ride-requests') : index === 3 ? (event) => handleProfile(event) : index === 4 ? (event) => handleNotifications(event) : null}
-              >
-                <ListItemIcon>
-                  {index === 0 ? <DirectionsCarIcon /> : index === 1 ? <PeopleIcon /> : index === 3 ? <ProfileIcon /> : <MapIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer>
+
       <Box
         component="main"
         sx={{
@@ -134,7 +87,7 @@ const Homescreen = () => {
         }}
       >
         <Toolbar />
-        <MapInterface coordinates={location.coordinates} />
+        <MapInterface coordinates={location.coordinates} drivers={drivers} />
         <RideRequestForm /> 
       </Box>
     </Box>
